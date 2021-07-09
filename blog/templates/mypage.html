@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+    <style>
+        .line{border-bottom:1px rgba(163, 163, 163, 0.486) solid;}
+    </style>
+    <h5><a style="font-size: 35px; color: #0f506e;">{{user.nickname}}</a>님의 회원정보입니다.</h5>
+    <hr>
+    <table style="text-align: center; width: 100%; height: 250px; background-color: rgba(240, 240, 240, 0.479);">
+        <tr class="line">
+            <td>회원 ID</td><td>{{user.username}}</td>
+        </tr>
+        <tr class="line">
+            <td>회원 닉네임</td><td>{{user.nickname}}</td>
+        </tr>
+        <tr class="line">
+            <td>대학교</td><td>{{user.university}}</td>
+        </tr>
+        <tr>
+            <td>사는 곳</td><td>{{user.location}}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+
+{% endblock %}

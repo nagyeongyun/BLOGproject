@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if not user.is_authenticated %}
+    <h3>로그인해주세요</h3>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <h4><a style="font-size: 38px; color: #294fa0;">{{user.nickname}}</a>님 환영합니다^^</h4>
+    {% endif %}
+    <a href="?search=true&writer={{user.nickname}}">내가 쓴 글</a>
+    <hr><br>
+    <div class="container" style="display: grid; grid-template-columns: repeat(3, 1fr);">
+    {% for blog in blogs %}
+        <div >
+        <h4 style="padding-bottom: 10px;">{{blog.title}}</h4>
+        <p><img src="{{blog.image.url}}" alt="" width="150px" height="150px"></p>
+        <p style="padding: 0px 80px 0px 80px;">{{blog.summary}}</p><a href="{% url 'detail' blog.id %}">...more</a>
+        </div>
+    {% endfor %}
+    </div><br>
+    {% if blogs.has_previous %}
+    <a href="?page=1">처음</a>
+    <a href="?page={{blogs.previous_page_number}}">이전</a>
+    {% endif %}
+    <span>{{blogs.number}}</span>
+    <span>of</span>
+    <span>{{blogs.paginator.num_pages}}</span>
+    {% if blogs.has_next %}
+    <a href="?page={{blogs.next_page_number}}">다음</a>
+    <a href="?page={{blogs.paginator.num_pages}}">마지막</a>
+    {% endif %}
+
+{% endblock %}
